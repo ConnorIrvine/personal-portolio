@@ -5,8 +5,7 @@ import {
   Box,
   Text,
   useBreakpointValue,
-  Center,
-  VStack
+  Center
 } from '@chakra-ui/react';
 import '../App.css';
 import colors from '../colors.js';
@@ -29,14 +28,12 @@ const carouselSettings = {
   infinite: true,
   speed: 600,
   autoplay: true,
-  autoplaySpeed: 5000, // Adjust the speed of auto-scrolling here
-  vertical: true,
-  verticalSwiping: true,
+  autoplaySpeed: 5000,
   slidesToShow: 1,
   slidesToScroll: 1,
-  arrows: false, // Disable arrows if you don't want navigation buttons
+  arrows: false,
   dots: true,
-  pauseOnDotsHover: true,
+  pauseOnHover: true,
 };
 
 const Metrics = () => {
@@ -58,33 +55,25 @@ const Metrics = () => {
         <Text className="h1" fontSize={titleFontSize} color={colors.primarywhite} mb = {5}>
         Work I've Done Lately
         </Text>
-        <VStack>
-        <Slider {...carouselSettings} style={{ height: '100%', width: '100%' }}>
-          {textLibrary.map((text, index) => (
-            <Box
-              key={index}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              height="100%"
-              width="100%"
-            >
-              <Text 
-                className="h3"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                fontSize={textFontSize}
-                color={colors.primarywhite}
-                textAlign="center" // Center text horizontally
-                padding="0px 20px" // Optional: add padding to ensure text isn't too close to the edges
-              >
-                {text}
-              </Text>
-            </Box>
-          ))}
-        </Slider>
-        </VStack>
+        <Box className="metrics-slider" w="100%">
+          <Slider {...carouselSettings}>
+            {textLibrary.map((text, index) => (
+              <Box key={index} px={2}>
+                <Center h="60px">
+                  <Text
+                    className="h3"
+                    fontSize={textFontSize}
+                    color={colors.primarywhite}
+                    textAlign="center"
+                    noOfLines={2}
+                  >
+                    {text}
+                  </Text>
+                </Center>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
 
       </Box>
     </ChakraProvider>

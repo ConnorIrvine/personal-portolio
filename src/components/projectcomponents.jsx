@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ChakraProvider, Box, VStack, Text, IconButton, Center, HStack, Spacer, Button
+  ChakraProvider, Box, VStack, Text, IconButton, Center, HStack, Spacer, Button, useBreakpointValue
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
@@ -70,11 +70,16 @@ const PrevArrow = ({ onClick }) => (
 const Project = ({ projectData }) => {
   const navigate = useNavigate();
 
+  const headingSize = useBreakpointValue({ base: '18px', md: '22px', lg: '28px' });
+  const descSize = useBreakpointValue({ base: '12px', md: '14px', lg: '16px' });
+  const tagSize = useBreakpointValue({ base: '10px', md: '11px', lg: '12px' });
+  const imageH = useBreakpointValue({ base: '30vh', md: '38vh', lg: '45vh' });
+
   const handleProjectNavigation = () => {
     if (projectData.externalLink) {
-      window.open(projectData.externalLink, '_blank'); // Opens external link in new tab
+      window.open(projectData.externalLink, '_blank');
     } else {
-      navigate(projectData.navigateTo); // Internal navigation
+      navigate(projectData.navigateTo);
     }
   };
 
@@ -90,55 +95,61 @@ const Project = ({ projectData }) => {
 
   return (
     <ChakraProvider>
-      <VStack spacing={6} alignItems="flex-start">
-        <HStack spacing={4} w="full" alignItems="center">
-          <Text className="h1" fontSize="30px" color="white" textAlign="left">
+      <VStack spacing={4} alignItems="flex-start" w="100%" h="100%">
+        <HStack spacing={3} w="100%" alignItems="flex-start" flexWrap="wrap">
+          <Text className="h1" fontSize={headingSize} color="white" textAlign="left" noOfLines={2} flex={1}>
             {projectData.name}
           </Text>
-          <Spacer />
-          <HStack spacing={2}>
+          <HStack spacing={2} flexWrap="wrap">
             {projectData.tags.map((tag, index) => (
-              <Box key={index} bg="teal.500" color="white" p={2} borderRadius="md" fontSize="sm">
+              <Box key={index} bg="teal.500" color="white" p={2} borderRadius="md" fontSize={tagSize}>
                 {tag}
               </Box>
             ))}
           </HStack>
         </HStack>
 
-        <Center w="100%">
-          <Box w="90vh"  h="45vh"  borderWidth="1px" borderRadius="lg" overflow="hidden">
-            <Slider {...settings}>
-              {projectData.images.map((image, index) => (
-                <VStack key={index}>
-                  <Text
-                    bg="rgba(0, 0, 0, 0.1)"
-                    align = "center"
-                    color="white"
-                    pl={1}
-                    className="h3"
-                    fontSize="sm"
-                  >
-                    {image.caption}
-                  </Text>
-                  <img src={image.src} alt={`Slide ${index + 1}`} width="100%" />
-                </VStack>
-              ))}
-            </Slider>
-          </Box>
-        </Center>
+        <Box w="100%" h={imageH} borderWidth="1px" borderRadius="lg" overflow="hidden" flexShrink={0}>
+          <Slider {...settings} style={{ height: '100%' }}>
+            {projectData.images.map((image, index) => (
+              <Box key={index} position="relative" h={imageH}>
+                <Text
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  right={0}
+                  bg="rgba(0,0,0,0.4)"
+                  color="white"
+                  pl={2}
+                  py={1}
+                  className="h3"
+                  fontSize="sm"
+                  zIndex={1}
+                >
+                  {image.caption}
+                </Text>
+                <img
+                  src={image.src}
+                  alt={`Slide ${index + 1}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </Box>
+            ))}
+          </Slider>
+        </Box>
 
-        <Text className="h3" fontSize="18px" color="white" textAlign="left">
+        <Text className="h3" fontSize={descSize} color="white" textAlign="left">
           {projectData.description}
         </Text>
 
-        <HStack w="full" justify="flex-end">
+        <HStack w="100%" justify="flex-end">
           <Button
             className="h1"
             onClick={handleProjectNavigation}
             color="white"
             variant="link"
             rightIcon={<ArrowRightIcon boxSize={3} />}
-            fontSize="20px"
+            fontSize={descSize}
             fontWeight="bold"
             _hover={{ textDecoration: 'underline' }}
             textDecoration="underline"

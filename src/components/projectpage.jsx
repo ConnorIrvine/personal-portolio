@@ -57,33 +57,34 @@ const ProjectPage = ({
         >
           <Text
             className="h1"
-            fontSize={{ base: "30", md: "40px" }}
+            fontSize={{ base: "24px", md: "32px", lg: "40px" }}
             color={colors.blue}
             textAlign="left"
-            alignSelf="flex-start" // Align to the top left
-            width="200vw"
-            mr={{ base: "0", md: "60px", lg:"400px" }}
+            alignSelf="flex-start"
+            flex={1}
+            minW="0"
           >
             {projectName}
           </Text>
           <Text
-            fontSize="lg"
+            fontSize={{ base: "sm", md: "md", lg: "lg" }}
             color={colors.primarywhite}
             textAlign="right"
             alignSelf="flex-start"
+            maxW={{ base: "100%", md: "40%" }}
           >
             {projectDescription}
           </Text>
         </HStack>
         <Text pl={10} fontSize="lg" color={colors.secondarywhite} textAlign="left">{projectTimeline}</Text>
-        <Center height="1000px" pt="10">
-        <iframe
-          src={pdfLink}
-          width="90%"
-          height="100%"
-          title="PDF Viewer"
-          style={{ border: 'none' }}
-        />
+        <Center height="80vh" pt="10">
+          <iframe
+            src={pdfLink}
+            width="90%"
+            height="100%"
+            title="PDF Viewer"
+            style={{ border: 'none' }}
+          />
         </Center>
         
       </Box>    

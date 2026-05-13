@@ -159,5 +159,32 @@ body {
 /* Apply a pointer cursor to indicate clickable item */
 .carousel-item {
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  transition: background-color 0.3s ease;
+}
+
+.metrics-slider .slick-dots li button:before {
+  color: #555;
+  font-size: 8px;
+}
+
+.metrics-slider .slick-dots li.slick-active button:before {
+  color: white;
+}
+
+.metrics-slider .slick-dots {
+  position: static;
+  margin-top: 8px;
+}
+
+.projects-slider .slick-dots li button:before {
+  color: #555;
+  font-size: 8px;
+}
+
+.projects-slider .slick-dots li.slick-active button:before {
+  color: white;
+}
+
+.projects-slider .slick-dots {
+  bottom: -20px;
 }

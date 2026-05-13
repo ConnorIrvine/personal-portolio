@@ -125,7 +125,7 @@ const Projects = () => {
               backgroundColor: colors.quinaryblack,
             }}
           >
-            <HStack h="100%" w="100%" gap="3">
+            <HStack h="100%" w="100%" gap="3" overflow="hidden" align="center">
               <Image
                 src={project.image}
                 alt={project.name}
@@ -134,22 +134,22 @@ const Projects = () => {
                 objectFit="cover"
                 borderRadius={12}
                 minW="50%"
+                flexShrink={0}
               />
-              <VStack align="start">
-                <Text className="h1" fontSize={titleFontSize} color="white">
+              <VStack align="start" w="100%" overflow="hidden" spacing={1} h="100%">
+                <Text className="h1" fontSize={titleFontSize} color="white" noOfLines={3} w="100%" flexShrink={0}>
                   {project.name}
                 </Text>
-                <Text className="h3" fontSize={descriptionFontSize} color="white">
+                <Text className="h3" fontSize={descriptionFontSize} color="white" w="100%" flex={1} overflow="hidden">
                   {project.description}
                 </Text>
-                <HStack spacing={1} className="tag-container">
+                <HStack spacing={1} flexWrap="wrap" w="100%" flexShrink={0}>
                   {project.tags.map((tag, index) => (
                     <Tag
                       key={index}
                       textColor={colors.secondaryblack}
                       backgroundColor={colors.blue}
                       fontSize={tagFontSize}
-                      className="tag-item"
                     >
                       <TagLabel>{tag}</TagLabel>
                     </Tag>
